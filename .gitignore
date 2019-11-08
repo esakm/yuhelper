@@ -1,0 +1,15 @@
+# Created by .ignore support plugin (hsz.mobi)
+### Example user template template
+### Example user template
+
+# IntelliJ project files
+.idea
+*.iml
+out/
+build/
+gen
+.gradle
+.gitsecret/keys/random_seed
+yuhelper-servlet/src/main/resources/application.properties
+yuhelper-servlet/src/main/java/com/yuhelper/servlet/config/SecurityConfig.java
+yuhelper-course-scraper/src/main/resources/scraper/scraper.py

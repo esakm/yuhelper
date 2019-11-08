@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-151223675-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-151223675-1');
+    </script>
+
+    <meta charset="UTF-8">
+    <title>YUHelper Sign Up</title>
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+    <!-- Custom styles for this template -->
+    <link href="/css/style.css" rel="stylesheet"/>
+    <link rel="icon" href="/favicon.png">
+    <script src="/js/signup.js"></script>
+</head>
+<body>
+    <div id="sign-up-container">
+        <h4>
+            Create your YUHelper account
+        </h4>
+        <form id="sign-up-form" onsubmit="return false;">
+            <div class="form-group">
+                <h5 class="signup-header">Email address:</h5>
+                <input type="text" class="form-control" id="email-sign-up" aria-describedby="email" name="email" placeholder="Enter your email" data-toggle="tooltip" data-placement="top">
+            </div>
+            <div class="form-group">
+                <h5 class="signup-header">Username:</h5>
+                <input type="text" class="form-control" id="username-sign-up" aria-describedby="username" name="username" placeholder="Enter your username">
+            </div>
+            <div class="form-group">
+                <h5 class="signup-header">Password:</h5>
+                <input type="password" class="form-control" id="password-sign-up" name="password" placeholder="Password">
+            </div>
+            <div class="form-group">
+                <h5 class="signup-header">Re-enter your password:</h5>
+                <input type="password" class="form-control" id="password-check" name="passwordCheck" placeholder="Confirm your passworrd">
+            </div>
+            <!--<div class="form-group">-->
+                <!--<h5 class="signup-header">Please re-enter your password:</h5>-->
+                <!--<input type="password" class="form-control" id="password-check" name="password-check" placeholder="Confirm your password">-->
+            <!--</div>-->
+            <button onclick="signUp()" class="btn btn-primary" id="signup-submit-button" style="align-self: center;">Submit</button>
+        </form>
+    </div>
+
+    <script
+            src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+</body>
+</html>

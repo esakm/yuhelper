@@ -1,0 +1,141 @@
+body{
+    background: #2c3747;
+    color: antiquewhite;
+    font-family: sans-serif, Serif;
+}
+
+#welcome_page_container{
+    padding-bottom: 56.25%;
+    position: relative;
+}
+
+#welcome_page_login_form{
+    margin-top: 5vh;
+    margin-bottom: auto;
+    margin-left: auto;
+    margin-right: auto;
+    width: 30%;
+}
+
+#login-header-text{
+    font-size: 30px;
+    margin-top: 30px;
+}
+
+.main_container{
+    height: 100%;
+}
+
+#login-img{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.login_page_button{
+    margin-left: auto;
+    background: dodgerblue;
+    color: black;
+    margin-top: 10px;
+}
+
+#password-login{
+    margin-top: 10px;
+}
+
+.nav-link{
+    color:antiquewhite;
+}
+
+.error_active{
+    visibility: visible;
+}
+
+.error_inactive{
+    visibility: hidden;
+}
+
+.course-search-form{
+    margin-left: 20%;
+    margin-right: 20%;
+    margin-top: 30px;
+}
+
+#autocomplete-container{
+    border-radius: 5px;
+    border: grey  solid 1px;
+    border-top: none;
+}
+
+#sign-up-form{
+    align-content: center;
+    padding-right: 40vw;
+    padding-left: 40vw;
+    margin-top: 20px;
+}
+
+.signup-header{
+    text-align: left;
+    font-size: 16px;
+}
+
+.invalid-feedback{
+    align-self: center;
+}
+
+
+#sign-up-container{
+    text-align: center;
+}
+
+.form-control {
+    border-radius: 0;
+}
+
+.ui-widget-content, .ui-autocomplete, .ui-front {
+    visibility: hidden;
+}
+
+.list-group-item {
+    width: 100%;
+    border-radius: 0;
+    background: #2F353B;
+    color: antiquewhite;
+}
+
+.form-group{
+    border-radius: 3px;
+}
+
+
+#course-container {
+    padding-top: 10px;
+    padding-left: 2em;
+    padding-right: 2em;
+}
+
+
+
+.course-section{
+    border-radius: 2px;
+    border: darkorange 1px solid;
+    background-color: #2F353B;
+    width: 75vw;
+    margin-top: 15px;
+}
+
+#course-description-container {
+    width: 50vw;
+}
+
+.section-header{
+    margin-left: 10px;
+    margin-top: 3px;
+    margin-bottom: 3px;
+
+}
+
+#feature-alert{
+    padding-right: 25%;
+    padding-left: 25%;
+}

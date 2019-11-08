@@ -1,0 +1,21 @@
+plugins {
+    id 'java'
+}
+
+group 'yuhelper'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile project(':yuhelper-ext-libs')
+}
+
+jar {
+    baseName = 'yuhelper-core'
+    enabled = true
+}

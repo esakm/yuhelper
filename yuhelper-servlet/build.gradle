@@ -1,0 +1,40 @@
+plugins {
+    id 'java'
+    id 'idea'
+    id 'application'
+    id 'org.springframework.boot' version '2.1.8.RELEASE'
+}
+
+group 'yuhelper'
+version '1.0'
+mainClassName = 'com.yuhelper.servlet.Main'
+sourceCompatibility = 1.8
+repositories {
+    mavenCentral()
+}
+
+bootJar{
+    baseName = "yuhelper-exe"
+}
+
+jar{
+    enabled=true
+    baseName = "yuhelper-jar"
+    manifest {
+        attributes(
+                'Main-Class': 'com.yuhelper.servlet.Main'
+        )
+    }
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
+
+dependencies{
+
+    compile project(':yuhelper-ext-libs')
+    compile project(':yuhelper-course-scraper')
+    compile project(':yuhelper-core')
+
+
+}

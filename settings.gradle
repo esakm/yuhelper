@@ -1,0 +1,6 @@
+rootProject.name = 'yuhelper'
+include 'yuhelper-servlet'
+include 'yuhelper-course-scraper'
+include 'yuhelper-core'
+include 'yuhelper-ext-libs'
+
