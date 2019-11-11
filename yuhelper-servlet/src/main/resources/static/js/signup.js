@@ -1,5 +1,5 @@
 const clearNodes = function (){
-    let oldErrorNodes = document.getElementsByClassName("signup-validation-error");
+    let oldErrorNodes = document.getElementsByClassName("alert-danger");
     let oldSuccessNodes = document.getElementsByClassName("signup-validation-success-tip");
     if (oldErrorNodes.length > 0) {
         oldErrorNodes = Array.prototype.slice.call(oldErrorNodes);
@@ -31,28 +31,28 @@ const signUp = function () {
 
     if (username.value.match(usernameRegEx) === null || username.value.match(usernameRegEx).length !== 1) {
         let error_node = document.createElement("div");
-        error_node.className = "signup-validation-error text-danger";
+        error_node.className = "alert alert-danger";
         error_node.innerText = "Please enter a valid username. It must be alpha numeric (A-Z 0-9) and 3 to 24 characters long";
         username.parentNode.appendChild(error_node);
         valid = false;
     }
     if (password.value.match(passwordRegEx) === null || password.value.match(passwordRegEx).length !== 1) {
         let error_node = document.createElement("div");
-        error_node.className = "signup-validation-error text-danger";
+        error_node.className = "alert alert-danger";
         error_node.innerText = "Please enter a valid password. It must include 1 upper case letter, 1 lower case letter, 1 special character and be at least 8 characters long";
         password.parentNode.appendChild(error_node);
         valid = false;
     }
     if (passwordCheck.value === null || passwordCheck.value !== password.value) {
         let error_node = document.createElement("div");
-        error_node.className = "signup-validation-error text-danger";
+        error_node.className = "alert alert-danger";
         error_node.innerText = "Please re-enter your password";
         passwordCheck.parentNode.appendChild(error_node);
         valid = false;
     }
     if (email.value.match(emailRegEx) === null || email.value.match(emailRegEx).length !== 1) {
         let error_node = document.createElement("div");
-        error_node.className = "signup-validation-error text-danger";
+        error_node.className = "alert alert-danger";
         error_node.innerText = "Please enter a valid email";
         email.parentNode.appendChild(error_node);
         valid = false;
@@ -65,21 +65,23 @@ const signUp = function () {
         xhr.onload = function () {
             if(xhr.status === 409){
                 let error_node = document.createElement("div");
-                error_node.className = "signup-validation-error text-danger";
+                error_node.className = "signup-validation-error alert alert-danger";
                 error_node.innerText = "That username or email is already taken. Please try another one.";
                 email.parentNode.parentNode.appendChild(error_node);
             }else{
                 let success_node = document.createElement("div");
-                success_node.className = "signup-validation-success text-success";
-                success_node.innerText = "A verification link has been sent to your email. Please verify your email.";
+                success_node.className = "signup-validation-success alert-success alert";
+                success_node.innerHTML = "<h4 class=\"alert-heading\">Success!</h4>"+
+                    "<p>A verification link has been sent to your email. Please verify your account before logging in.</p>\n" +
+                    "<hr>";
                 let resend_link = document.createElement("button");
                 resend_link.className = "btn btn-primary";
                 resend_link.id = "resend-button";
                 resend_link.innerText = "Resend verification link";
-                resend_link.setAttribute("href", "/users/resend?username=" + username.value);
+                resend_link.setAttribute("href", "/users/resend?username=" + encodeURIComponent(username.value));
                 resend_link.onclick = reSend;
-                email.parentNode.parentNode.appendChild(success_node);
-                email.parentNode.parentNode.appendChild(resend_link);
+                success_node.appendChild(resend_link);
+                document.getElementById("sign-up-form").appendChild(success_node);
                 document.getElementById("signup-submit-button").setAttribute('disabled', 'disabled');
             }
         };

@@ -24,14 +24,14 @@ public class ScraperManager {
 
     private boolean startProcess() {
         try {
-            pb = new ProcessBuilder("python", scraperUrl);
+            pb = new ProcessBuilder("python3", scraperUrl);
             pb.inheritIO();
             Process p = pb.start();
             process = p;
             return true;
         } catch (IOException e) {
             try {
-                pb = new ProcessBuilder("python3", scraperUrl);
+                pb = new ProcessBuilder("python", scraperUrl);
                 pb.inheritIO();
                 Process p = pb.start();
                 process = p;

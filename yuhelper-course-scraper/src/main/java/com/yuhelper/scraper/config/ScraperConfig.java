@@ -32,8 +32,8 @@ public class ScraperConfig {
             Map<String, String> env = new HashMap<>();
             env.put("create", "true");
             FileSystems.newFileSystem(scraperPath.toURI(), env);
-            extractFile("./semesters.json", configStream);
-            return extractFile("./scraper.py", scraperStream);
+            extractFile("semesters.json", configStream);
+            return extractFile("scraper.py", scraperStream);
         } catch (URISyntaxException e) {
             System.exit(4004);
 

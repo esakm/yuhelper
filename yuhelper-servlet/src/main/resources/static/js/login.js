@@ -4,9 +4,9 @@
     var c = url.searchParams.get("error");
     if (c != null && c === 'true') {
         var alert = document.getElementById("login-alert");
-        alert.className += " error_active";
+        alert.className = "alert alert-danger error_active";
     } else {
         var alert = document.getElementById("login-alert");
-        alert.className += " error_inactive";
+        alert.className = "alert alert-danger error_inactive";
     }
 })();

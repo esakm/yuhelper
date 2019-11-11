@@ -27,7 +27,7 @@ public class CourseService {
         return courseRepo.searchByCourseCodeAndCredits(course);
     }
 
-    @Cacheable("courses")
+    @Cacheable("course-autocomplete")
     public List<Course> searchForAutoComplete(String q){
         final String keyword = q.toLowerCase();
         List<Course> results = courses.parallelStream().filter((Course c) -> c.getCoursePK().getCourseCode().toLowerCase().contains(keyword) || c.getName().toLowerCase().contains(keyword)).collect(Collectors.toList());

@@ -28,26 +28,26 @@
             Create your YUHelper account
         </h4>
         <form id="sign-up-form" onsubmit="return false;">
-            <div class="form-group">
-                <h5 class="signup-header">Email address:</h5>
-                <input type="text" class="form-control" id="email-sign-up" aria-describedby="email" name="email" placeholder="Enter your email" data-toggle="tooltip" data-placement="top">
+            <div class="row">
+                <div class="form-group col-lg">
+                    <h5 class="signup-header">Email address:</h5>
+                    <input type="text" class="form-control" id="email-sign-up" aria-describedby="email" name="email" placeholder="Enter your email" data-toggle="tooltip" data-placement="top">
+                </div>
+                <div class="form-group col-lg">
+                    <h5 class="signup-header">Username:</h5>
+                    <input type="text" class="form-control" id="username-sign-up" aria-describedby="username" name="username" placeholder="Enter your username">
+                </div>
             </div>
-            <div class="form-group">
-                <h5 class="signup-header">Username:</h5>
-                <input type="text" class="form-control" id="username-sign-up" aria-describedby="username" name="username" placeholder="Enter your username">
+            <div class="row">
+                <div class="form-group col-lg">
+                    <h5 class="signup-header">Password:</h5>
+                    <input type="password" class="form-control" id="password-sign-up" name="password" placeholder="Password">
+                </div>
+                <div class="form-group col-lg">
+                    <h5 class="signup-header">Re-enter your password:</h5>
+                    <input type="password" class="form-control" id="password-check" name="passwordCheck" placeholder="Confirm your passworrd">
+                </div>
             </div>
-            <div class="form-group">
-                <h5 class="signup-header">Password:</h5>
-                <input type="password" class="form-control" id="password-sign-up" name="password" placeholder="Password">
-            </div>
-            <div class="form-group">
-                <h5 class="signup-header">Re-enter your password:</h5>
-                <input type="password" class="form-control" id="password-check" name="passwordCheck" placeholder="Confirm your passworrd">
-            </div>
-            <!--<div class="form-group">-->
-                <!--<h5 class="signup-header">Please re-enter your password:</h5>-->
-                <!--<input type="password" class="form-control" id="password-check" name="password-check" placeholder="Confirm your password">-->
-            <!--</div>-->
             <button onclick="signUp()" class="btn btn-primary" id="signup-submit-button" style="align-self: center;">Submit</button>
         </form>
     </div>
