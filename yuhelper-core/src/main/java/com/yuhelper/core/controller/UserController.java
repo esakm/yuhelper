@@ -1,13 +1,17 @@
 package com.yuhelper.core.controller;
 
 import com.yuhelper.core.domain.security.model.SignUpToken;
+import com.yuhelper.core.model.User;
 import com.yuhelper.core.service.TokenService;
+import com.yuhelper.core.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 import java.util.Optional;
@@ -17,8 +21,16 @@ import java.util.Optional;
 public class UserController {
 
     @Autowired
+    UserService userService;
+
+    @Resource(name = "UserBean")
+    User user;
+
+    @Autowired
     TokenService tokenService;
 
+
+    // TODO make expiredToken.html
     @GetMapping(value = "/users/verify")
     public ModelAndView enableUser(@RequestParam String token, HttpServletResponse response){
         Optional<SignUpToken> signUpToken = tokenService.getSignUpToken(token);
@@ -32,5 +44,24 @@ public class UserController {
         }else{
             return new ModelAndView("login.html");
         }
+    }
+
+    @GetMapping(value = "/user/{userProfile}")
+    public ModelAndView getUserProfile(@PathVariable("userProfile") String q){
+        User userProfile = userService.getUser(q);
+        ModelAndView model;
+        if(userProfile != null){
+            model = new ModelAndView("profile.html");
+            model.addObject("userProfile", userProfile);
+            model.addObject("userInfo", userProfile.getUserInfo());
+            userService.addUserToModel(model);
+            if(user.getId() != null && user.getId().equals(userProfile.getId())){
+                model.addObject("userAdmin", true);
+            }
+        }else{
+            model = new ModelAndView("forward:/home.html");
+        }
+        return model;
+
     }
 }

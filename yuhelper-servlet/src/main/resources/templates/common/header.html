@@ -38,14 +38,14 @@
 <div th:fragment="navbar">
     <!-- Static navbar -->
     <nav class="navbar navbar-dark bg-dark border-bottom border-danger">
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="/">
             <img src="/img/icon.png" width="40" height="40" class="d-inline-block">
             Beta
         </a>
         <a class="nav-link" href="/">Home <span class="sr-only"></span></a>
         <a th:if="${user}" class="nav-item nav-link" href="/logout">Logout</a>
         <a th:unless="${user}" class="nav-item nav-link" href="/login">Login</a>
-        <a th:if="${user}" th:text="${user.username}" class="nav-item nav-link"></a>
+        <a th:if="${user}" th:text="${user.username}" class="nav-item nav-link" th:href="${'/user/' + user.username}"></a>
         <div class="dropdown">
             <button class="btn btn-secondary dropdown-toggle" type="button" id="quick-links-button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Quick Links

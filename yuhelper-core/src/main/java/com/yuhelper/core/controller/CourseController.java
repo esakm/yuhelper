@@ -6,6 +6,7 @@ import com.yuhelper.core.model.CourseLecture;
 import com.yuhelper.core.model.CourseOffering;
 import com.yuhelper.core.model.User;
 import com.yuhelper.core.service.CourseService;
+import com.yuhelper.core.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,8 +20,8 @@ public class CourseController {
     @Autowired
     CourseService service;
 
-    @Resource(name = "UserBean")
-    User user;
+    @Autowired
+    UserService userService;
 
     @GetMapping(value = "/course")
     public ModelAndView getCourse(@RequestParam String q){
@@ -28,9 +29,7 @@ public class CourseController {
         ModelAndView model = new ModelAndView("course.html");
         model.addObject("course", course);
         model.addObject("courseOfferings", course.getCourseOfferings());
-        if(user.getId() != null){
-            model.addObject("user", user);
-        }
+        userService.addUserToModel(model);
         return model;
     }
 

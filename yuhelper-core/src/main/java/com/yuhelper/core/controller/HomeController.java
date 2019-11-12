@@ -21,9 +21,6 @@ public class HomeController {
     @Autowired
     UserService userService;
 
-    @Resource(name = "UserBean")
-    User user;
-
     @GetMapping(value={"/", "home", "index"})
     public String redirectToIndex(){
         return "forward:/home.html";
@@ -38,9 +35,7 @@ public class HomeController {
     @GetMapping(value = "home.html")
     public ModelAndView index(){
         ModelAndView model = new ModelAndView("home.html");
-        if(user.getId() != null){
-            model.addObject("user", user);
-        }
+        userService.addUserToModel(model);
         return model;
     }
 
