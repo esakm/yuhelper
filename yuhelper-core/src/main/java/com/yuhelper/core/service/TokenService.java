@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.transaction.Transactional;
 import java.util.Date;
 import java.util.Optional;
 
@@ -23,6 +24,7 @@ public class TokenService {
         return signUpTokenRepository.findByToken(token);
     }
 
+    @Transactional
     public void enableUser(SignUpToken token){
         token.getUser().setEnabled(true);
         userRepository.merge(token.getUser());

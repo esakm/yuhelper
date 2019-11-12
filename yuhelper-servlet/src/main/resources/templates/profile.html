@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head th:replace="common/header.html :: common-header"/>
+<body>
+<div th:replace="common/header.html :: navbar"/>
+<div class="jumbotron jumbotron-fluid bg-dark">
+    <h1 th:text="${userProfile.username}" class="display-4"></h1>
+    <p th:text="${userInfo.program}" class="lead"></p>
+    <hr class="my-4">
+    <p th:text="${userInfo.about}"></p>
+    <p class="lead">
+        <a th:if="${userAdmin}" class="btn btn-primary btn-lg settings-button" href="/user/settings" role="button">Account
+            settings</a>
+    </p>
+
+</div>
+</body>
+</html>

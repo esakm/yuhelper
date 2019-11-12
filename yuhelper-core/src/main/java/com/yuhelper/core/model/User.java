@@ -33,13 +33,15 @@ public class User implements UserDetails {
     private String passwordHash;
 
 
-    // TODO IMPLEMENT SALT GENERATION SERVER SIDE FOR NEW USERS
     @Column(name = "salt", nullable = false)
     private String salt;
 
     @Column(name = "create_time", insertable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Date creationDate;
+
+    @OneToOne(mappedBy = "user", fetch = FetchType.EAGER, orphanRemoval = true)
+    private UserInfo userInfo;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, orphanRemoval = true)
     private Set<UserRole> userRoles = new LinkedHashSet<>();
@@ -63,6 +65,8 @@ public class User implements UserDetails {
      *
      * @param username
      * @param email
+     * @param password
+     * @param salt
      */
     public User(String username, String email, String password, String salt) {
         this.username = username;
@@ -137,6 +141,14 @@ public class User implements UserDetails {
         this.userRoles.add(userRole);
     }
 
+    public UserInfo getUserInfo() {
+        return userInfo;
+    }
+
+    public void setUserInfo(UserInfo userInfo) {
+        this.userInfo = userInfo;
+    }
+
     public SignUpToken getSignUpToken() {
         return signUpToken;
     }
@@ -171,7 +183,7 @@ public class User implements UserDetails {
 
     @JsonIgnore
     public boolean isAccountNonLocked() {
-        return true;
+        return enabled;
     }
 
     @JsonIgnore
