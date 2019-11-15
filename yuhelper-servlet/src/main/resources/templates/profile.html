@@ -4,15 +4,121 @@
 <body>
 <div th:replace="common/header.html :: navbar"/>
 <div class="jumbotron jumbotron-fluid bg-dark">
-    <h1 th:text="${userProfile.username}" class="display-4"></h1>
-    <p th:text="${userInfo.program}" class="lead"></p>
+    <div class="row align-items-center">
+        <div class="col-md-auto">
+            <h1 th:text="${userProfile.username}" class="display-4"></h1>
+        </div>
+        <div class="col-md-auto">
+            <button th:if="${userAdmin}" class="btn btn-outline-primary btn-lg d-inline-block align-top" onclick="editProfile()" role="button">Edit</button>
+        </div>
+    </div>
+    <p id="userProgram" th:text="${userInfo.program}" class="lead"></p>
+    <small class="text-muted" hidden>Enter your program above</small>
     <hr class="my-4">
-    <p th:text="${userInfo.about}"></p>
-    <p class="lead">
-        <a th:if="${userAdmin}" class="btn btn-primary btn-lg settings-button" href="/user/settings" role="button">Account
-            settings</a>
-    </p>
+    <p id="userAboutMe" th:text="${userInfo.about}"></p>
+    <small class="text-muted" hidden>Enter your about me changes above</small>
+    <div class="row">
+        <div class="col-md-auto">
+            <a th:if="${userAdmin}" class="btn btn-primary btn-lg settings-button" href="/user/settings" role="button">Account settings</a>
+        </div>
+        <div class="col-md-auto">
+            <a th:if="${userAdmin}" class="btn btn-outline-primary btn-lg" hidden id="profileSubmitButton" onclick="changeProfile()" role="button">Submit changes</a>
+        </div>
+    </div>
+    <script>
+        const clearNodes = function (){
+            let oldErrorNodes = document.getElementsByClassName("alert-danger");
+            if (oldErrorNodes.length > 0) {
+                oldErrorNodes = Array.prototype.slice.call(oldErrorNodes);
+                oldErrorNodes.forEach(function (node) {
+                    node.parentNode.removeChild(node);
+                });
+            }
+        };
+        let aboutMe = document.getElementById("userAboutMe");
+        let program = document.getElementById("userProgram");
+        function editProfile() {
+            clearNodes();
+            let tips = document.getElementsByTagName("small");
+            for(let i = 0; i < tips.length; i++){
+                tips[i].hidden = false;
+            }
+            let submitButton = document.getElementById("profileSubmitButton");
+            submitButton.hidden = false;
+            aboutMe.setAttribute("contenteditable", true);
+            program.setAttribute("contenteditable", true);
+            program.focus();
+        }
 
+        function changeProfile(){
+            clearNodes();
+            let errorNode = document.createElement("div");
+            errorNode.innerText = "Cannot be empty";
+            errorNode.className = "alert-danger col-md-auto";
+            program.innerText === '' ? program.appendChild(errorNode) : aboutMe.innerText === '' ? aboutMe.appendChild(errorNode) : null;
+            if(program.innerText.length > 50){
+                let errorNode = document.createElement("div");
+                errorNode.innerText = "Maximum program length is 50";
+                errorNode.className = "alert-danger col-md-auto";
+                program.appendChild(errorNode);
+                return;
+            }else if(program.innerText.length > 500){
+                let errorNode = document.createElement("div");
+                errorNode.innerText = "Maximum length is 500";
+                errorNode.className = "alert-danger col-md-auto";
+                aboutMe.appendChild(errorNode);
+                return;
+            }else{
+                let submitButton = document.getElementById("profileSubmitButton");
+                submitButton.parentNode.className = "loader";
+                submitButton.parentNode.id = "status";
+                submitButton.hidden = true;
+                let xhr = new XMLHttpRequest();
+                xhr.open("POST", "/user/change/aboutme?aboutMe=" + encodeURIComponent(aboutMe.innerText));
+                xhr.withCredentials = true;
+                xhr.send();
+                xhr.onload = function () {
+                    if(xhr.status !== 202){
+                        let errorNode = document.createElement("div");
+                        errorNode.innerText = "Something went wrong";
+                        errorNode.className = "alert-danger";
+                        submitButton.hidden = false;
+                        submitButton.appendChild(errorNode);
+                        submitButton.parentNode.className = "col-md-auto";
+                    }else{
+                        let xh2 = new XMLHttpRequest();
+                        xh2.open("POST", "/user/change/program?program=" + encodeURIComponent(program.innerText));
+                        xh2.withCredentials = true;
+                        xh2.send();
+                        xh2.onload = function () {
+                            if(xh2.status !== 202){
+                                let errorNode = document.createElement("div");
+                                errorNode.innerText = "Something went wrong";
+                                errorNode.className = "alert-danger";
+                                submitButton.hidden = false;
+                                submitButton.parentNode.appendChild(errorNode);
+                                submitButton.parentNode.className = "col-md-auto";
+                            }else{
+                                let successNode = document.createElement("div");
+                                submitButton.parentNode.className = "col-md-auto";
+                                successNode.className = "successIcon";
+                                submitButton.parentNode.appendChild(successNode);
+                                successNode.addEventListener("animationend", function() {
+                                    successNode.parentNode.removeChild(successNode);
+                                });
+                                aboutMe.setAttribute("contenteditable", false);
+                                program.setAttribute("contenteditable", false);
+                                let tips = document.getElementsByTagName("small");
+                                for(let i = 0; i < tips.length; i++){
+                                    tips[i].hidden = true;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
 </div>
 </body>
 </html>

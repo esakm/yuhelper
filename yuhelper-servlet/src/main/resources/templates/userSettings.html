@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="common/header.html :: common-header"/>
+<body>
+    <div th:replace="common/header.html :: navbar"/>
+    <div class="jumbotron jumbotron-fluid bg-dark">
+        <div id="password-container">
+            <input type="password" class="form-control col-md-auto" name="password" id="currentPassword" placeholder="Current password"/>
+        </div>
+        <div id="new-password-container">
+            <input type="password" class="form-control col-md-auto" name="password" id="passwordChange" placeholder="New Password"/>
+        </div>
+        <div id="password-check-container">
+            <input type="password" class="form-control col-md-auto" name="password" id="passwordChangeCheck" placeholder="Confirm new password"/>
+        </div>
+        <div>
+            <button class="btn btn-primary mb-2 login_page_button" id="submitButton" onclick="changePassword()">Change password</button>
+        </div>
+    </div>
+    <script>
+        const passwordRegEx = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/g;
+        const clearNodes = function (){
+            let oldErrorNodes = document.getElementsByClassName("alert-danger");
+            if (oldErrorNodes.length > 0) {
+                oldErrorNodes = Array.prototype.slice.call(oldErrorNodes);
+                oldErrorNodes.forEach(function (node) {
+                    node.parentNode.removeChild(node);
+                });
+            }
+        };
+        function changePassword(){
+            clearNodes();
+            let errorNode = document.createElement("div");
+            errorNode.className = "alert-danger";
+            let currentPassword = document.getElementById("currentPassword");
+            let newPassword = document.getElementById("passwordChange");
+            let passwordChangeCheck = document.getElementById("passwordChangeCheck");
+            let passwordContainer = document.getElementById("password-container");
+            let newPasswordContainer = document.getElementById("new-password-container");
+            let passwordCheckContainer = document.getElementById("password-check-container");
+            let button = document.getElementById("submitButton");
+            button.className = "loader";
+            button.disabled = true;
+            button.innerText = "";
+            button.tagName = "div";
+            if(currentPassword.value.match(passwordRegEx) === null || currentPassword.value.match(passwordRegEx).length !== 1){
+                errorNode.innerText = "Please enter a valid password";
+                button.className = "btn btn-primary mb-2 login_page_button";
+                button.disabled = false;
+                button.innerText = "Change password";
+                button.tagName = "button";
+                passwordContainer.appendChild(errorNode);
+            }else if(newPassword.value.match(passwordRegEx) === null || newPassword.value.match(passwordRegEx).length !== 1){
+                errorNode.innerText = "Please enter a valid password";
+                button.className = "btn btn-primary mb-2 login_page_button";
+                button.disabled = false;
+                button.innerText = "Change password";
+                button.tagName = "button";
+                newPasswordContainer.appendChild(errorNode);
+            }else if(newPassword.value !== passwordChangeCheck.value){
+                errorNode.innerText = "Password must match";
+                button.className = "btn btn-primary mb-2 login_page_button";
+                button.disabled = false;
+                button.innerText = "Change password";
+                button.tagName = "button";
+                passwordCheckContainer.appendChild(errorNode);
+            }else{
+                let xhr = new XMLHttpRequest();
+                xhr.open("POST", "/user/change/password?password=" + encodeURIComponent(currentPassword.value) + "&newPassword=" + encodeURIComponent(newPassword.value) + "&passwordCheck=" + encodeURIComponent(passwordChangeCheck.value));
+                xhr.withCredentials = true;
+                xhr.send();
+                xhr.onload = function () {
+                    if(xhr.status === 401){
+                        errorNode.innerText = "Please enter your current password.";
+                        passwordContainer.appendChild(errorNode);
+                        button.className = "btn btn-primary mb-2 login_page_button";
+                        button.disabled = false;
+                        button.innerText = "Change password";
+                        button.tagName = "button";
+                    }else{
+                        button.className = "successIcon";
+                        button.disabled = false;
+                        button.addEventListener("animationend", function() {
+                            let par = button.parentNode;
+                            par.removeChild(button);
+                            button.className = "btn btn-primary mb-2 login_page_button";
+                            button.innerText = "Change password";
+                            button.tagName = "button";
+                            par.appendChild(button);
+                        });
+                    }
+
+                }
+            }
+
+        }
+    </script>
+</body>
+</html>

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -37,22 +38,48 @@ public class UserRestController {
                               @RequestParam @ValidPassword String password,
                               @RequestParam @ValidPassword String passwordCheck,
                               HttpServletResponse response) {
-        if(userService.checkNewUsernameAndEmail(username, email)){
-            if(userService.checkPassword(password, passwordCheck)){
+        if (userService.checkNewUsernameAndEmail(username, email)) {
+            if (userService.checkPassword(password, passwordCheck)) {
                 User user = userService.createUser(username, email, password);
                 emailService.sendVerificationLink(email, user.getSignUpToken().getToken());
                 response.setStatus(HttpServletResponse.SC_ACCEPTED);
-            }else{
+            } else {
                 response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             }
-        }else{
+        } else {
             response.setStatus(HttpServletResponse.SC_CONFLICT);
         }
     }
 
     @GetMapping(value = "/users/resend")
-    public void resendVerificationEmail(@RequestParam @ValidUsername String username){
+    public void resendVerificationEmail(@RequestParam @ValidUsername String username) {
         emailService.resendVerificationLink(username);
     }
+
+    @PostMapping(value = "/user/change/aboutme")
+    public void changeAboutMe(@RequestParam String aboutMe, HttpServletResponse servletResponse) {
+        servletResponse.setStatus(userService.changeAboutMe(aboutMe) ? HttpServletResponse.SC_ACCEPTED :
+                HttpServletResponse.SC_BAD_REQUEST);
+    }
+
+    @PostMapping(value = "/user/change/program")
+    public void changeProgram(@RequestParam String program, HttpServletResponse servletResponse) {
+        servletResponse.setStatus(userService.changeProgram(program) ? HttpServletResponse.SC_ACCEPTED :
+                HttpServletResponse.SC_BAD_REQUEST);
+    }
+
+    @PostMapping(value = "/user/change/password")
+    public void changePassword(@ValidPassword @RequestParam String password,
+                               @ValidPassword @RequestParam String newPassword,
+                               @ValidPassword @RequestParam String passwordCheck,
+                               HttpServletResponse servletResponse) {
+        if(newPassword.equals(passwordCheck) && userService.changePassword(password, newPassword)){
+            servletResponse.setStatus(HttpServletResponse.SC_ACCEPTED);
+        }else {
+            servletResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+        }
+
+    }
+
 
 }

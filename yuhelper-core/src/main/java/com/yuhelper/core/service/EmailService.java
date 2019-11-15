@@ -8,6 +8,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Optional;
 
 @Service
 public class EmailService {
@@ -30,11 +31,14 @@ public class EmailService {
     }
 
     public void resendVerificationLink(String username){
-        User user = userRepository.getUserByUsername(username);
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setTo(user.getEmail());
-        message.setSubject("YUHelper Verification Link");
-        message.setText(String.format(EMAIL_SIGN_UP_MESSAGE, user.getSignUpToken().getToken()));
-        emailSender.send(message);
+        Optional<User> user = userRepository.getUserByUsername(username);
+        if(user.isPresent() && user.get().getSignUpToken() != null){
+            SimpleMailMessage message = new SimpleMailMessage();
+            message.setTo(user.get().getEmail());
+            message.setSubject("YUHelper Verification Link");
+            message.setText(String.format(EMAIL_SIGN_UP_MESSAGE, user.get().getSignUpToken().getToken()));
+            emailSender.send(message);
+        }
+
     }
 }
