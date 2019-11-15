@@ -1,7 +1,6 @@
 package com.yuhelper.core.service;
 
 import com.yuhelper.core.domain.security.custom.CustomPasswordEncoder;
-import com.yuhelper.core.domain.security.model.Role;
 import com.yuhelper.core.domain.security.model.SignUpToken;
 import com.yuhelper.core.domain.security.model.UserRole;
 import com.yuhelper.core.domain.security.repo.RoleRepository;
@@ -13,15 +12,15 @@ import com.yuhelper.core.model.UserInfo;
 import com.yuhelper.core.repo.UserInfoRepository;
 import com.yuhelper.core.repo.UserRepository;
 import com.yuhelper.core.utils.StringConverter;
+
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import java.security.SecureRandom;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -48,17 +47,9 @@ public class UserService {
     User user;
 
     public boolean checkNewUsernameAndEmail(String username, String email){
-        try{
-            UserDetails usernameCheck = userSecurityService.loadUserByUsername(username);
-            return false;
-        }catch(UsernameNotFoundException e){
-            try{
-                UserDetails emailCheck = userSecurityService.loadUserByEmail(email);
-                return false;
-            }catch(UsernameNotFoundException e1){
-                return true;
-            }
-        }
+        Optional<User> usernameCheck = userRepository.getUserByUsername(username);
+        Optional<User> emailCheck = userRepository.getUserByEmail(email);
+        return !emailCheck.isPresent() && !usernameCheck.isPresent();
     }
 
     // CHECK IF 2 PASSWORDS ARE EQUAL
@@ -91,7 +82,7 @@ public class UserService {
         return user;
     }
 
-    public User getUser(String username){
+    public Optional<User> getUser(String username){
         return userRepository.getUserByUsername(username);
     }
 
@@ -100,6 +91,49 @@ public class UserService {
             model.addObject("user", user);
         }
         return model;
+    }
+
+    public boolean changeAboutMe(String newAboutMe){
+        if(newAboutMe.length() < 500){
+            user.getUserInfo().setAbout(newAboutMe);
+            userInfoRepository.merge(user.getUserInfo());
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public boolean changeProgram(String newProgram){
+        if(newProgram.length() < 50){
+            user.getUserInfo().setProgram(newProgram);
+            userInfoRepository.merge(user.getUserInfo());
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public UserInfo getUserProfile(User userTarget){
+        if(userTarget.getUserInfo() != null){
+            return userTarget.getUserInfo();
+        }else if(userTarget.getUserInfo() == null){
+            UserInfo userInfo = new UserInfo();
+            userInfo.setUser(userTarget);
+            userInfo = userInfoRepository.saveAndFlush(userInfo);
+            return userInfo;
+        }else{
+            return null;
+        }
+    }
+
+    public boolean changePassword(String password, String newPassword){
+        CustomPasswordEncoder passwordEncoder = new CustomPasswordEncoder(user.getSalt());
+        if(passwordEncoder.matches(password, user.getPasswordHash())){
+            user.setPasswordHash(passwordEncoder.encode(newPassword));
+            return true;
+        }else{
+            return false;
+        }
     }
 
 }

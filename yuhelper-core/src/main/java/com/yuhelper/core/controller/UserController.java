@@ -48,14 +48,14 @@ public class UserController {
 
     @GetMapping(value = "/user/{userProfile}")
     public ModelAndView getUserProfile(@PathVariable("userProfile") String q){
-        User userProfile = userService.getUser(q);
+        Optional<User> userProfile = userService.getUser(q);
         ModelAndView model;
-        if(userProfile != null){
+        if(userProfile.isPresent()){
             model = new ModelAndView("profile.html");
-            model.addObject("userProfile", userProfile);
-            model.addObject("userInfo", userProfile.getUserInfo());
+            model.addObject("userProfile", userProfile.get());
+            model.addObject("userInfo", userService.getUserProfile(userProfile.get()));
             userService.addUserToModel(model);
-            if(user.getId() != null && user.getId().equals(userProfile.getId())){
+            if(user.getId() != null && user.getId().equals(userProfile.get().getId())){
                 model.addObject("userAdmin", true);
             }
         }else{
@@ -64,4 +64,10 @@ public class UserController {
         return model;
 
     }
+
+    @GetMapping(value = "/user/settings")
+    public ModelAndView getUserSettingsPage(){
+        return new ModelAndView("userSettings.html");
+    }
+
 }
