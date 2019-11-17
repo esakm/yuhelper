@@ -20,23 +20,23 @@ public class CourseService {
     private List<Course> courses;
 
     @PostConstruct
-    private void loadCourses() {
+    private void loadCourses(){
         courses = courseRepo.findAll();
     }
 
-    public Course searchByName(String course) {
+    public Course searchByName(String course){
         return courseRepo.searchByCourseCodeAndCredits(course);
     }
 
     @Cacheable("course-autocomplete")
-    public List<Course> searchForAutoComplete(String q) {
+    public List<Course> searchForAutoComplete(String q){
         final String keyword = q.toLowerCase();
         List<Course> results = courses.parallelStream().filter((Course c) -> c.getCoursePK().getCourseCode().toLowerCase().contains(keyword) || c.getName().toLowerCase().contains(keyword)).collect(Collectors.toList());
         return results.size() >= 10 ? results.subList(0, 10) : results;
     }
 
     @Cacheable("course-rest-get")
-    public Optional<Course> searchForRest(String q) {
+    public Optional<Course> searchForRest(String q){
         final String keyword = q.toLowerCase();
         List<Course> results = courses.parallelStream().filter((Course c) -> c.getCoursePK().getCourseCode().toLowerCase().contains(keyword) || c.getName().toLowerCase().contains(keyword)).collect(Collectors.toList());
         return results.size() >= 1 ? Optional.of(results.get(0)) : Optional.empty();
