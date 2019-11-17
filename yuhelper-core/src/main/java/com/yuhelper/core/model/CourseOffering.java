@@ -27,7 +27,7 @@ public class CourseOffering {
     @OrderBy(value = "id ASC")
     private Set<CourseLecture> courseLectures = new LinkedHashSet<>();
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumns({
             @JoinColumn(name = "course", referencedColumnName = "course_code"),
             @JoinColumn(name = "course_credits", referencedColumnName = "credits")

@@ -29,35 +29,42 @@ public class CustomRepositoryImpl<T, ID extends Serializable> extends SimpleJpaR
     @Transactional
     public void refresh(T t) {
         em.refresh(t);
+        em.flush();
     }
 
     @Override
     @Transactional
     public void merge(T t) {
         em.merge(t);
+        em.flush();
     }
 
     @Override
     @Transactional
     public T update(T t) {
-        return em.merge(t);
+        T temp = em.merge(t);
+        em.flush();
+        return temp;
     }
 
     @Override
     @Transactional
     public void remove(T t) {
         em.remove(t);
+        em.flush();
     }
 
     @Override
     @Transactional
     public void persist(T t) {
         em.persist(t);
+        em.flush();
     }
 
     @Override
     @Transactional
     public void detach(T t) {
         em.detach(t);
+        em.flush();
     }
 }

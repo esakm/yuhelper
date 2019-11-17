@@ -40,7 +40,7 @@ public class CourseLecture {
         this.courseOffering = courseOffering;
     }
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "course_offering", referencedColumnName = "course_offering_id")
     @JsonIgnore
     private CourseOffering courseOffering;

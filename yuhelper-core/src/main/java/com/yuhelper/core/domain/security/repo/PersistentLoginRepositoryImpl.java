@@ -70,36 +70,43 @@ public class PersistentLoginRepositoryImpl extends SimpleJpaRepository<Persisten
     @Transactional
     public void refresh(PersistentLogin t) {
         em.refresh(t);
+        em.flush();
     }
 
     @Override
     @Transactional
     public void merge(PersistentLogin t) {
         em.merge(t);
+        em.flush();
     }
 
     @Override
     @Transactional
     public PersistentLogin update(PersistentLogin t) {
-        return em.merge(t);
+        PersistentLogin temp = em.merge(t);
+        em.flush();
+        return temp;
     }
 
     @Override
     @Transactional
     public void remove(PersistentLogin t) {
         em.remove(t);
+        em.flush();
     }
 
     @Override
     @Transactional
     public void persist(PersistentLogin t) {
         em.persist(t);
+        em.flush();
     }
 
     @Override
     @Transactional
     public void detach(PersistentLogin t) {
         em.detach(t);
+        em.flush();
     }
 
 }
