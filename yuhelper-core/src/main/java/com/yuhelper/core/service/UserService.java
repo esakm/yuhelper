@@ -97,6 +97,7 @@ public class UserService {
         if (newAboutMe.length() < 500) {
             user.getUserInfo().setAbout(newAboutMe);
             userInfoRepository.merge(user.getUserInfo());
+            userInfoRepository.flush();
             return true;
         } else {
             return false;
@@ -107,6 +108,7 @@ public class UserService {
         if (newProgram.length() < 50) {
             user.getUserInfo().setProgram(newProgram);
             userInfoRepository.merge(user.getUserInfo());
+            userInfoRepository.flush();
             return true;
         } else {
             return false;
@@ -128,6 +130,8 @@ public class UserService {
         CustomPasswordEncoder passwordEncoder = new CustomPasswordEncoder(user.getSalt());
         if (passwordEncoder.matches(password, user.getPasswordHash())) {
             user.setPasswordHash(passwordEncoder.encode(newPassword));
+            userRepository.merge(user);
+            userRepository.flush();
             return true;
         } else {
             return false;
