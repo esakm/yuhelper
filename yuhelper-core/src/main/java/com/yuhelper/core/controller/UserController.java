@@ -67,7 +67,9 @@ public class UserController {
 
     @GetMapping(value = "/user/settings")
     public ModelAndView getUserSettingsPage() {
-        return new ModelAndView("userSettings.html");
+        ModelAndView model = new ModelAndView("userSettings.html");
+        userService.addUserToModel(model);
+        return model;
     }
 
 }
