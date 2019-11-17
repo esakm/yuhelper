@@ -37,12 +37,12 @@ public class UserController {
         if (signUpToken.isPresent()) {
             if (signUpToken.get().getExpiryTime().after(new Date())) {
                 tokenService.enableUser(signUpToken.get());
-                return new ModelAndView("login.html");
+                return new ModelAndView("forward:/home.html");
             } else {
-                return new ModelAndView("expiredToken.html");
+                return new ModelAndView("forward:/expiredToken.html");
             }
         } else {
-            return new ModelAndView("login.html");
+            return new ModelAndView("forward:/home.html");
         }
     }
 

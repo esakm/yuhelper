@@ -83,22 +83,18 @@ public class User implements UserDetails {
         return id;
     }
 
-    @JsonIgnore
     public String getSalt() {
         return salt;
     }
 
-    @JsonIgnore
     public String getPasswordHash() {
         return passwordHash;
     }
 
-    @JsonIgnore
     public Set<UserRole> getUserRoles() {
         return userRoles;
     }
 
-    @JsonIgnore
     public String getEmail() {
         return email;
     }
@@ -111,27 +107,27 @@ public class User implements UserDetails {
         return creationDate;
     }
 
-    @JsonProperty
+    @Transactional
     public void setEmail(String email) {
         this.email = email;
     }
 
-    @JsonProperty
+    @Transactional
     public void setUsername(String username) {
         this.username = username;
     }
 
-    @JsonProperty
+    @Transactional
     public void setPasswordHash(String password) {
         this.passwordHash = password;
     }
 
-    @JsonProperty
+    @Transactional
     public void setSalt(String salt) {
         this.salt = salt;
     }
 
-    @JsonProperty
+    @Transactional
     public void setUserRoles(Set<UserRole> userRoles) {
         this.userRoles = userRoles;
     }
@@ -144,6 +140,7 @@ public class User implements UserDetails {
         return userInfo;
     }
 
+    @Transactional
     public void setUserInfo(UserInfo userInfo) {
         this.userInfo = userInfo;
     }
@@ -152,6 +149,7 @@ public class User implements UserDetails {
         return signUpToken;
     }
 
+    @Transactional
     public void setSignUpToken(SignUpToken signUpToken) {
         this.signUpToken = signUpToken;
     }
@@ -167,10 +165,12 @@ public class User implements UserDetails {
         return creationDate;
     }
 
+    @Transactional
     public void setCreationDate(Date creationDate) {
         this.creationDate = creationDate;
     }
 
+    @Transactional
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
     }
