@@ -29,6 +29,7 @@ public class CourseLecture {
     private String instructor;
     private String CAT;
     @Column(name = "time_string")
+    @JsonIgnore
     private String timeString;
 
     public CourseOffering getCourseOffering() {
