@@ -20,7 +20,7 @@ public class CustomPasswordEncoder implements PasswordEncoder {
         this.salt = salt;
     }
 
-    public CustomPasswordEncoder(){
+    public CustomPasswordEncoder() {
         SecureRandom random = new SecureRandom();
         byte[] salt = new byte[32];
         random.nextBytes(salt);
@@ -36,7 +36,7 @@ public class CustomPasswordEncoder implements PasswordEncoder {
         } catch (NoSuchAlgorithmException exception) {
             System.out.println(exception.getMessage());
             return "-1";
-        } catch (InvalidKeySpecException exception){
+        } catch (InvalidKeySpecException exception) {
             System.out.println(exception.getMessage());
             return "-1";
         }
@@ -51,7 +51,7 @@ public class CustomPasswordEncoder implements PasswordEncoder {
         return encodedRawPassword.equals(encodedPassword);
     }
 
-    public String getSalt(){
+    public String getSalt() {
         return salt;
     }
 }

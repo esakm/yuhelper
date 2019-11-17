@@ -19,7 +19,7 @@ public class PasswordValidator implements ConstraintValidator<ValidPassword, Str
     }
 
     @Override
-    public boolean isValid(String password, ConstraintValidatorContext context){
+    public boolean isValid(String password, ConstraintValidatorContext context) {
         return (validatePassword(password));
     }
 

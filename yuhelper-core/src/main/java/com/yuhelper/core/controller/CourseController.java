@@ -24,7 +24,7 @@ public class CourseController {
     UserService userService;
 
     @GetMapping(value = "/course")
-    public ModelAndView getCourse(@RequestParam String q){
+    public ModelAndView getCourse(@RequestParam String q) {
         Course course = service.searchByName(q);
         ModelAndView model = new ModelAndView("course.html");
         model.addObject("course", course);

@@ -32,33 +32,33 @@ public class UserController {
 
     // TODO make expiredToken.html
     @GetMapping(value = "/users/verify")
-    public ModelAndView enableUser(@RequestParam String token, HttpServletResponse response){
+    public ModelAndView enableUser(@RequestParam String token, HttpServletResponse response) {
         Optional<SignUpToken> signUpToken = tokenService.getSignUpToken(token);
-        if(signUpToken.isPresent()){
-            if(signUpToken.get().getExpiryTime().after(new Date())){
+        if (signUpToken.isPresent()) {
+            if (signUpToken.get().getExpiryTime().after(new Date())) {
                 tokenService.enableUser(signUpToken.get());
                 return new ModelAndView("login.html");
-            }else{
+            } else {
                 return new ModelAndView("expiredToken.html");
             }
-        }else{
+        } else {
             return new ModelAndView("login.html");
         }
     }
 
     @GetMapping(value = "/user/{userProfile}")
-    public ModelAndView getUserProfile(@PathVariable("userProfile") String q){
+    public ModelAndView getUserProfile(@PathVariable("userProfile") String q) {
         Optional<User> userProfile = userService.getUser(q);
         ModelAndView model;
-        if(userProfile.isPresent()){
+        if (userProfile.isPresent()) {
             model = new ModelAndView("profile.html");
             model.addObject("userProfile", userProfile.get());
             model.addObject("userInfo", userService.getUserProfile(userProfile.get()));
             userService.addUserToModel(model);
-            if(user.getId() != null && user.getId().equals(userProfile.get().getId())){
+            if (userProfile.get().equals(user)) {
                 model.addObject("userAdmin", true);
             }
-        }else{
+        } else {
             model = new ModelAndView("forward:/home.html");
         }
         return model;
@@ -66,7 +66,7 @@ public class UserController {
     }
 
     @GetMapping(value = "/user/settings")
-    public ModelAndView getUserSettingsPage(){
+    public ModelAndView getUserSettingsPage() {
         return new ModelAndView("userSettings.html");
     }
 

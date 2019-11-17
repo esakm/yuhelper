@@ -14,5 +14,4 @@ public interface SignUpTokenRepository extends JpaRepository<SignUpToken, Intege
     public Optional<SignUpToken> findByToken(String token);
 
 
-
 }

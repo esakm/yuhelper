@@ -79,10 +79,10 @@
                         button.tagName = "button";
                     }else{
                         button.className = "successIcon";
-                        button.disabled = false;
                         button.addEventListener("animationend", function() {
                             let par = button.parentNode;
                             par.removeChild(button);
+                            button.disabled = false;
                             button.className = "btn btn-primary mb-2 login_page_button";
                             button.innerText = "Change password";
                             button.tagName = "button";

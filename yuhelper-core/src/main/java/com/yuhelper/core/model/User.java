@@ -59,7 +59,6 @@ public class User implements UserDetails {
 
     }
 
-
     /**
      * This constructor is to be used when creating new users.
      *
@@ -137,7 +136,7 @@ public class User implements UserDetails {
         this.userRoles = userRoles;
     }
 
-    public void addUserRole(UserRole userRole){
+    public void addUserRole(UserRole userRole) {
         this.userRoles.add(userRole);
     }
 
@@ -207,14 +206,21 @@ public class User implements UserDetails {
 
     @Override
     public boolean equals(Object o) {
-        if(o == this){
+        if (o == this) {
             return true;
-        }
-        if (o instanceof User) {
+        } else if (o == null) {
+            return false;
+        } else if (o instanceof User) {
+            if (((User) o).getId() == null) return id == null;
             return ((User) o).getId().equals(id);
         } else {
             return false;
         }
+    }
+
+    @JsonIgnore
+    public boolean isUnAuthenticatedUser() {
+        return id == null;
     }
 
 

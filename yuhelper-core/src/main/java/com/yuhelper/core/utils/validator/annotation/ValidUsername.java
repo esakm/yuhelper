@@ -12,6 +12,8 @@ import java.lang.annotation.*;
 @Documented
 public @interface ValidUsername {
     String message() default "Invalid username";
+
     Class<?>[] groups() default {};
+
     Class<? extends Payload>[] payload() default {};
 }

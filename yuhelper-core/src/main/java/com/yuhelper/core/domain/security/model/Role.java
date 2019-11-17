@@ -5,11 +5,11 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Entity
-@Table(name="roles")
+@Table(name = "roles")
 public class Role {
 
     @Id
-    @Column(name="role_id")
+    @Column(name = "role_id")
     private int roleId;
 
     private String name;
@@ -17,11 +17,11 @@ public class Role {
     @OneToMany(mappedBy = "role", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<UserRole> userRoles = new LinkedHashSet<>();
 
-    public Role(){
+    public Role() {
 
     }
 
-    public Role(int id, String name){
+    public Role(int id, String name) {
         this.roleId = id;
         this.name = name;
     }
@@ -49,8 +49,6 @@ public class Role {
     public void setUserRoles(Set<UserRole> userRoles) {
         this.userRoles = userRoles;
     }
-
-
 
 
 }

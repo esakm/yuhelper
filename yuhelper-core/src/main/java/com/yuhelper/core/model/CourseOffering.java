@@ -15,7 +15,7 @@ import java.util.UUID;
 public class CourseOffering {
 
     @Id
-    @Column(name="course_offering_id")
+    @Column(name = "course_offering_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private BigInteger courseOfferingId;
 
@@ -35,7 +35,7 @@ public class CourseOffering {
     @JsonIgnore
     private Course course;
 
-    public CourseOffering(){
+    public CourseOffering() {
 
     }
 
@@ -88,18 +88,18 @@ public class CourseOffering {
     }
 
     @Override
-    public int hashCode(){
+    public int hashCode() {
         return Objects.hash(courseOfferingId);
     }
 
     @Override
-    public boolean equals(Object o){
-        if(o == this){
+    public boolean equals(Object o) {
+        if (o == this) {
             return true;
         }
-        if(o instanceof CourseOffering){
+        if (o instanceof CourseOffering) {
             return ((CourseOffering) o).getCourseOfferingId().equals(courseOfferingId);
-        }else{
+        } else {
             return false;
         }
     }

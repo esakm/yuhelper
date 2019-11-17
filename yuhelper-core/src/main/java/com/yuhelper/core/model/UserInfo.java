@@ -26,7 +26,7 @@ public class UserInfo {
     private String about = "Tell us about yourself!";
 
 
-    public UserInfo(){
+    public UserInfo() {
 
     }
 
@@ -71,17 +71,19 @@ public class UserInfo {
     }
 
     @Override
-    public int hashCode(){
+    public int hashCode() {
         return Objects.hash(id);
     }
 
     @Override
-    public boolean equals(Object o){
-        if(this == o){
+    public boolean equals(Object o) {
+        if (this == o) {
             return true;
-        }else if(o instanceof UserInfo){
+        } else if (o == null) {
+            return false;
+        } else if (o instanceof UserInfo) {
             return ((UserInfo) o).getId().equals(id);
-        }else{
+        } else {
             return false;
         }
     }

@@ -20,12 +20,12 @@ public class TokenService {
     @Autowired
     UserRepository userRepository;
 
-    public Optional<SignUpToken> getSignUpToken(String token){
+    public Optional<SignUpToken> getSignUpToken(String token) {
         return signUpTokenRepository.findByToken(token);
     }
 
     @Transactional
-    public void enableUser(SignUpToken token){
+    public void enableUser(SignUpToken token) {
         token.getUser().setEnabled(true);
         userRepository.merge(token.getUser());
         signUpTokenRepository.delete(token);

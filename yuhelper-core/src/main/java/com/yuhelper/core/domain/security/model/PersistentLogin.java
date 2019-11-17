@@ -9,7 +9,7 @@ import java.util.Date;
 import java.util.Objects;
 
 @Entity
-@Table(name="persistent_logins")
+@Table(name = "persistent_logins")
 public class PersistentLogin {
 
     private String username;
@@ -21,7 +21,7 @@ public class PersistentLogin {
     @Column(name = "last_used")
     private Date lastUsed;
 
-    public PersistentLogin(){
+    public PersistentLogin() {
 
     }
 
@@ -58,18 +58,20 @@ public class PersistentLogin {
     }
 
     @Override
-    public boolean equals(Object o){
-        if(this == o){
+    public boolean equals(Object o) {
+        if (this == o) {
             return true;
-        }else if(o instanceof PersistentLogin){
+        } else if (o == null) {
+            return false;
+        } else if (o instanceof PersistentLogin) {
             return ((PersistentLogin) o).getUsername().equals(username);
-        }else{
+        } else {
             return false;
         }
     }
 
     @Override
-    public int hashCode(){
+    public int hashCode() {
         return Objects.hash(username);
     }
 }

@@ -14,7 +14,7 @@ import java.util.Optional;
 public class EmailService {
 
     @Autowired
-    @Resource(name="MailSenderBean")
+    @Resource(name = "MailSenderBean")
     public JavaMailSender emailSender;
 
     @Autowired
@@ -22,7 +22,7 @@ public class EmailService {
 
     private static final String EMAIL_SIGN_UP_MESSAGE = "Your YUHelper verification link is https://yuhelper.ca/users/verify?token=%s";
 
-    public void sendVerificationLink(String email, String token){
+    public void sendVerificationLink(String email, String token) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(email);
         message.setSubject("YUHelper Verification Link");
@@ -30,9 +30,9 @@ public class EmailService {
         emailSender.send(message);
     }
 
-    public void resendVerificationLink(String username){
+    public void resendVerificationLink(String username) {
         Optional<User> user = userRepository.getUserByUsername(username);
-        if(user.isPresent() && user.get().getSignUpToken() != null){
+        if (user.isPresent() && user.get().getSignUpToken() != null) {
             SimpleMailMessage message = new SimpleMailMessage();
             message.setTo(user.get().getEmail());
             message.setSubject("YUHelper Verification Link");
