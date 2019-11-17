@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
+
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -73,9 +73,9 @@ public class UserRestController {
                                @ValidPassword @RequestParam String newPassword,
                                @ValidPassword @RequestParam String passwordCheck,
                                HttpServletResponse servletResponse) {
-        if(newPassword.equals(passwordCheck) && userService.changePassword(password, newPassword)){
+        if (newPassword.equals(passwordCheck) && userService.changePassword(password, newPassword)) {
             servletResponse.setStatus(HttpServletResponse.SC_ACCEPTED);
-        }else {
+        } else {
             servletResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         }
 

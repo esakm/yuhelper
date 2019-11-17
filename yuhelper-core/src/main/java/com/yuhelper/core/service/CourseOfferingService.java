@@ -16,15 +16,4 @@ public class CourseOfferingService {
     @Autowired
     private CourseOfferingRepository courseOfferingRepository;
 
-    public List<CourseOffering> searchByName(String keyword, Pageable page){
-        return courseOfferingRepository.searchByName(keyword, page);
-    }
-
-    public LinkedList<CourseOffering> searchForAutoComplete(String keyword){
-        List<CourseOffering> list = courseOfferingRepository.searchByName(keyword, PageRequest.of(0, 10));
-        LinkedList<CourseOffering> ll = new LinkedList<>();
-        list.forEach(co -> ll.add(co));
-        return ll;
-    }
-
 }

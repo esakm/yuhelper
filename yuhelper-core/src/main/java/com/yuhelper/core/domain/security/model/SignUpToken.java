@@ -11,7 +11,7 @@ import java.util.Date;
 import java.util.Objects;
 
 @Entity
-@Table(name="signup_tokens")
+@Table(name = "signup_tokens")
 public class SignUpToken {
 
 
@@ -27,7 +27,7 @@ public class SignUpToken {
     @Column(nullable = false)
     private String token;
 
-    @Column(name="token_create_time", columnDefinition = "DATETIME", insertable = false)
+    @Column(name = "token_create_time", columnDefinition = "DATETIME", insertable = false)
     @Temporal(TemporalType.TIMESTAMP)
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Date startTime;
@@ -37,11 +37,11 @@ public class SignUpToken {
     private Date expiryTime;
 
 
-    public SignUpToken(){
+    public SignUpToken() {
 
     }
 
-    public SignUpToken(User user, String token){
+    public SignUpToken(User user, String token) {
         this.user = user;
         this.token = token;
         expiryTime = DateFactory.getShortTokenExpiryDate();
@@ -88,18 +88,20 @@ public class SignUpToken {
     }
 
     @Override
-    public boolean equals(Object o){
-        if(this == o){
+    public boolean equals(Object o) {
+        if (this == o) {
             return true;
-        }else if(o instanceof SignUpToken){
+        } else if (o == null) {
+            return false;
+        } else if (o instanceof SignUpToken) {
             return ((SignUpToken) o).getTokenId().equals(tokenId);
-        }else{
+        } else {
             return false;
         }
     }
 
     @Override
-    public int hashCode(){
+    public int hashCode() {
         return Objects.hash(tokenId);
     }
 

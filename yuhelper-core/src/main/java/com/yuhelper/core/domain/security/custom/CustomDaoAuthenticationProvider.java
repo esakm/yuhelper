@@ -15,7 +15,7 @@ public class CustomDaoAuthenticationProvider extends DaoAuthenticationProvider {
     }
 
     @Override
-    public Authentication authenticate(Authentication authentication){
+    public Authentication authenticate(Authentication authentication) {
         authentication.getDetails();
         String username = authentication.getName();
         String password = authentication.getCredentials().toString();
@@ -27,7 +27,7 @@ public class CustomDaoAuthenticationProvider extends DaoAuthenticationProvider {
         if (!getPasswordEncoder().matches(password, user.getPassword()) || !user.isEnabled()) {
             throw new BadCredentialsException("Wrong login info entered.");
         }
-        Collection< ? extends GrantedAuthority> authorities = user.getAuthorities();
+        Collection<? extends GrantedAuthority> authorities = user.getAuthorities();
         return new UsernamePasswordAuthenticationToken(user, password, authorities);
     }
 

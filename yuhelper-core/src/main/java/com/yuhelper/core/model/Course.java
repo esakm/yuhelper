@@ -6,7 +6,7 @@ import java.util.Objects;
 import java.util.Set;
 
 @Entity
-@Table(name="courses")
+@Table(name = "courses")
 public class Course {
     @EmbeddedId
     private CoursePK coursePK;
@@ -20,7 +20,7 @@ public class Course {
     @OrderBy(value = "section ASC")
     private Set<CourseOffering> courseOfferings = new LinkedHashSet<>();
 
-    public Course(){
+    public Course() {
 
     }
 
@@ -82,18 +82,18 @@ public class Course {
     }
 
     @Override
-    public boolean equals(Object o){
-        if(this == o){
+    public boolean equals(Object o) {
+        if (this == o) {
             return true;
-        }else if(o instanceof Course){
+        } else if (o instanceof Course) {
             return ((Course) o).getCoursePK().equals(coursePK);
-        }else{
+        } else {
             return false;
         }
     }
 
     @Override
-    public int hashCode(){
+    public int hashCode() {
         return Objects.hash(coursePK);
     }
 }

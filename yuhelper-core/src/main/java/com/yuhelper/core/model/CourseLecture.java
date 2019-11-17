@@ -19,7 +19,7 @@ public class CourseLecture {
     @JsonIgnore
     @Transient
     public final String SEPARATOR = "\\+";
-    
+
     private String type;
     private String day;
     private String location;
@@ -44,7 +44,7 @@ public class CourseLecture {
     @JsonIgnore
     private CourseOffering courseOffering;
 
-    public CourseLecture(){
+    public CourseLecture() {
 
     }
 
@@ -121,18 +121,18 @@ public class CourseLecture {
     }
 
     @Override
-    public boolean equals(Object o){
-        if(this == o){
+    public boolean equals(Object o) {
+        if (this == o) {
             return true;
-        }else if(o instanceof CourseLecture){
+        } else if (o instanceof CourseLecture) {
             return ((CourseLecture) o).getId().equals(id);
-        }else{
+        } else {
             return false;
         }
     }
 
     @Override
-    public int hashCode(){
+    public int hashCode() {
         return Objects.hash(id);
     }
 

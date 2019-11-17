@@ -6,11 +6,11 @@ import javax.persistence.*;
 import java.math.BigInteger;
 
 @Entity
-@Table(name="user_roles")
+@Table(name = "user_roles")
 public class UserRole {
 
     @Id
-    @Column(name="user_role_id")
+    @Column(name = "user_role_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private BigInteger userRoleId;
 
@@ -19,14 +19,14 @@ public class UserRole {
     private User user;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name="role_id")
+    @JoinColumn(name = "role_id")
     private Role role;
 
-    public UserRole(){
+    public UserRole() {
 
     }
 
-    public UserRole(User user, Role role){
+    public UserRole(User user, Role role) {
         this.user = user;
         this.role = role;
     }

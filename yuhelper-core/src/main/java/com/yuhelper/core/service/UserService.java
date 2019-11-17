@@ -46,18 +46,18 @@ public class UserService {
     @Resource(name = "UserBean")
     User user;
 
-    public boolean checkNewUsernameAndEmail(String username, String email){
+    public boolean checkNewUsernameAndEmail(String username, String email) {
         Optional<User> usernameCheck = userRepository.getUserByUsername(username);
         Optional<User> emailCheck = userRepository.getUserByEmail(email);
         return !emailCheck.isPresent() && !usernameCheck.isPresent();
     }
 
     // CHECK IF 2 PASSWORDS ARE EQUAL
-    public boolean checkPassword(String p1, String p2){
+    public boolean checkPassword(String p1, String p2) {
         return p1.equals(p2);
     }
 
-    public User createUser(String username, String email, String password){
+    public User createUser(String username, String email, String password) {
         CustomPasswordEncoder passwordEncoder = new CustomPasswordEncoder();
         String newSalt = passwordEncoder.getSalt();
 
@@ -82,56 +82,54 @@ public class UserService {
         return user;
     }
 
-    public Optional<User> getUser(String username){
+    public Optional<User> getUser(String username) {
         return userRepository.getUserByUsername(username);
     }
 
-    public ModelAndView addUserToModel(ModelAndView model){
-        if(user.getId() != null){
+    public ModelAndView addUserToModel(ModelAndView model) {
+        if (!user.isUnAuthenticatedUser()) {
             model.addObject("user", user);
         }
         return model;
     }
 
-    public boolean changeAboutMe(String newAboutMe){
-        if(newAboutMe.length() < 500){
+    public boolean changeAboutMe(String newAboutMe) {
+        if (newAboutMe.length() < 500) {
             user.getUserInfo().setAbout(newAboutMe);
             userInfoRepository.merge(user.getUserInfo());
             return true;
-        }else{
+        } else {
             return false;
         }
     }
 
-    public boolean changeProgram(String newProgram){
-        if(newProgram.length() < 50){
+    public boolean changeProgram(String newProgram) {
+        if (newProgram.length() < 50) {
             user.getUserInfo().setProgram(newProgram);
             userInfoRepository.merge(user.getUserInfo());
             return true;
-        }else{
+        } else {
             return false;
         }
     }
 
-    public UserInfo getUserProfile(User userTarget){
-        if(userTarget.getUserInfo() != null){
+    public UserInfo getUserProfile(User userTarget) {
+        if (userTarget.getUserInfo() != null) {
             return userTarget.getUserInfo();
-        }else if(userTarget.getUserInfo() == null){
+        } else {
             UserInfo userInfo = new UserInfo();
             userInfo.setUser(userTarget);
             userInfo = userInfoRepository.saveAndFlush(userInfo);
             return userInfo;
-        }else{
-            return null;
         }
     }
 
-    public boolean changePassword(String password, String newPassword){
+    public boolean changePassword(String password, String newPassword) {
         CustomPasswordEncoder passwordEncoder = new CustomPasswordEncoder(user.getSalt());
-        if(passwordEncoder.matches(password, user.getPasswordHash())){
+        if (passwordEncoder.matches(password, user.getPasswordHash())) {
             user.setPasswordHash(passwordEncoder.encode(newPassword));
             return true;
-        }else{
+        } else {
             return false;
         }
     }

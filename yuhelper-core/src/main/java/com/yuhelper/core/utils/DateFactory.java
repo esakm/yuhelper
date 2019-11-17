@@ -8,9 +8,10 @@ public final class DateFactory {
 
     /**
      * Returns the current timestamp + 30 minutes. Use this to generate expiry dates for any tokens.
+     *
      * @return the current time with 30 minutes added.
      */
-    public static Date getShortTokenExpiryDate(){
+    public static Date getShortTokenExpiryDate() {
         Date date = new Date();
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);

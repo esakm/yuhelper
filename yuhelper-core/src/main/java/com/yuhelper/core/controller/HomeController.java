@@ -21,8 +21,8 @@ public class HomeController {
     @Autowired
     UserService userService;
 
-    @GetMapping(value={"/", "home", "index"})
-    public String redirectToIndex(){
+    @GetMapping(value = {"/", "home", "index"})
+    public String redirectToIndex() {
         return "forward:/home.html";
     }
 
@@ -33,14 +33,14 @@ public class HomeController {
 
 
     @GetMapping(value = "home.html")
-    public ModelAndView index(){
+    public ModelAndView index() {
         ModelAndView model = new ModelAndView("home.html");
         userService.addUserToModel(model);
         return model;
     }
 
     @GetMapping(value = "signup")
-    public String signUpPage(){
+    public String signUpPage() {
         return "signup.html";
     }
 

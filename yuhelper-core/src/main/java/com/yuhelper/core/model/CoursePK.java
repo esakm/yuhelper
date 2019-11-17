@@ -16,11 +16,11 @@ public class CoursePK implements Serializable {
     private float credits;
 
 
-    public CoursePK(){
+    public CoursePK() {
 
     }
 
-    public CoursePK(String courseCode, float credits){
+    public CoursePK(String courseCode, float credits) {
         this.courseCode = courseCode;
         this.credits = credits;
     }
@@ -42,19 +42,19 @@ public class CoursePK implements Serializable {
     }
 
     @Override
-    public boolean equals(Object o){
-        if(this == o){
+    public boolean equals(Object o) {
+        if (this == o) {
             return true;
-        }else if(o instanceof CoursePK){
+        } else if (o instanceof CoursePK) {
             return Float.floatToIntBits(((CoursePK) o).credits) == Float.floatToIntBits(credits) && courseCode.equals(((CoursePK) o).courseCode);
 
-        }else{
+        } else {
             return false;
         }
     }
 
     @Override
-    public int hashCode(){
+    public int hashCode() {
         return Objects.hash(courseCode, credits);
     }
 
