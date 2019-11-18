@@ -22,6 +22,7 @@ public class CourseOffering {
     private String term;
     private String director;
     private String section;
+    private String session;
 
     @OneToMany(mappedBy = "courseOffering", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @OrderBy(value = "id ASC")
@@ -85,6 +86,14 @@ public class CourseOffering {
 
     public void setCourseLectures(Set<CourseLecture> courseLectures) {
         this.courseLectures = courseLectures;
+    }
+
+    public String getSession() {
+        return session;
+    }
+                                                                                    
+    public void setSession(String session) {
+        this.session = session;
     }
 
     @Override

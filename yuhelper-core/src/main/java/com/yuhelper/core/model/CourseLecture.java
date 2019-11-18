@@ -32,14 +32,6 @@ public class CourseLecture {
     @JsonIgnore
     private String timeString;
 
-    public CourseOffering getCourseOffering() {
-        return courseOffering;
-    }
-
-    public void setCourseOffering(CourseOffering courseOffering) {
-        this.courseOffering = courseOffering;
-    }
-
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "course_offering", referencedColumnName = "course_offering_id")
     @JsonIgnore
@@ -47,6 +39,14 @@ public class CourseLecture {
 
     public CourseLecture() {
 
+    }
+
+    public CourseOffering getCourseOffering() {
+        return courseOffering;
+    }
+
+    public void setCourseOffering(CourseOffering courseOffering) {
+        this.courseOffering = courseOffering;
     }
 
     public BigInteger getId() {
