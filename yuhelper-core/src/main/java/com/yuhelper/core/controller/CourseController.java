@@ -16,7 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.annotation.Resource;
 
 @Controller
-public class CourseControllera {
+public class CourseController {
     @Autowired
     CourseService service;
 
