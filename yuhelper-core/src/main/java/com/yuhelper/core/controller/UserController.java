@@ -19,7 +19,7 @@ import java.util.Optional;
 
 @Controller
 public class UserController {
-
+    // TODO ADD 404 PAGES
     @Autowired
     UserService userService;
 
