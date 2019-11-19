@@ -2,6 +2,7 @@ package com.yuhelper.core.domain.security.model;
 
 import javax.persistence.*;
 import java.util.LinkedHashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -48,6 +49,11 @@ public class Role {
 
     public void setUserRoles(Set<UserRole> userRoles) {
         this.userRoles = userRoles;
+    }
+
+    @Override
+    public int hashCode(){
+        return Objects.hash(name);
     }
 
 

@@ -4,6 +4,7 @@ import com.yuhelper.core.model.User;
 
 import javax.persistence.*;
 import java.math.BigInteger;
+import java.util.Objects;
 
 @Entity
 @Table(name = "user_roles")
@@ -53,6 +54,11 @@ public class UserRole {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    @Override
+    public int hashCode(){
+        return Objects.hash(role);
     }
 
 
