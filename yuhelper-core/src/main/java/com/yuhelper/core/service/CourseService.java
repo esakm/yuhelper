@@ -1,7 +1,6 @@
 package com.yuhelper.core.service;
 
 import com.yuhelper.core.model.Course;
-import com.yuhelper.core.model.CoursePK;
 import com.yuhelper.core.repo.CourseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;

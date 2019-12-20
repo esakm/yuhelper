@@ -43,14 +43,15 @@ public class CoursePK implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
+        if (this == o)
             return true;
-        } else if (o instanceof CoursePK) {
-            return Float.floatToIntBits(((CoursePK) o).credits) == Float.floatToIntBits(credits) && courseCode.equals(((CoursePK) o).courseCode);
-
-        } else {
+        else if(o == null)
             return false;
-        }
+        else if (o instanceof CoursePK)
+            return Float.floatToIntBits(((CoursePK) o).credits) == Float.floatToIntBits(credits) && courseCode.equals(((CoursePK) o).courseCode);
+        else
+            return false;
+
     }
 
     @Override

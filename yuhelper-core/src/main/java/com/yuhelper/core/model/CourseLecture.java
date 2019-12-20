@@ -37,6 +37,9 @@ public class CourseLecture {
     @JsonIgnore
     private CourseOffering courseOffering;
 
+    /**
+     *
+     */
     public CourseLecture() {
 
     }
