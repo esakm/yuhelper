@@ -32,7 +32,7 @@ public class SignUpToken {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Date startTime;
 
-    @Column(name = "expiry_time", nullable = false)
+    @Column(name = "expiry_time", columnDefinition = "DATETIME", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date expiryTime;
 

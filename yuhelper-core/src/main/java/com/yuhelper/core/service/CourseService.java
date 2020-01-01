@@ -31,14 +31,14 @@ public class CourseService {
     @Cacheable("course-autocomplete")
     public List<Course> searchForAutoComplete(String q){
         final String keyword = q.toLowerCase();
-        List<Course> results = courses.stream().filter((Course c) -> c.getCoursePK().getCourseCode().toLowerCase().contains(keyword) || c.getName().toLowerCase().contains(keyword)).collect(Collectors.toList());
+        List<Course> results = courses.parallelStream().filter((Course c) -> c.getCoursePK().getCourseCode().toLowerCase().contains(keyword) || c.getName().toLowerCase().contains(keyword)).collect(Collectors.toList());
         return results.size() >= 10 ? results.subList(0, 10) : results;
     }
 
     @Cacheable("course-rest-get")
     public Optional<Course> searchForRest(String q){
         final String keyword = q.toLowerCase();
-        List<Course> results = courses.stream().filter((Course c) -> c.getCoursePK().getCourseCode().toLowerCase().contains(keyword) || c.getName().toLowerCase().contains(keyword)).collect(Collectors.toList());
+        List<Course> results = courses.parallelStream().filter((Course c) -> c.getCoursePK().getCourseCode().toLowerCase().contains(keyword) || c.getName().toLowerCase().contains(keyword)).collect(Collectors.toList());
         return results.size() >= 1 ? Optional.of(results.get(0)) : Optional.empty();
     }
 

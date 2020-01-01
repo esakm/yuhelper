@@ -87,6 +87,7 @@ public class ScraperConfig {
                 while ((line = stream.read()) != -1) {
                     bw.write(line);
                 }
+                stream.close();
                 bw.flush();
                 bw.close();
             }

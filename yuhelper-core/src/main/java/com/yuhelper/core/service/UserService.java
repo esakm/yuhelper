@@ -11,6 +11,7 @@ import com.yuhelper.core.model.User;
 import com.yuhelper.core.model.UserInfo;
 import com.yuhelper.core.repo.UserInfoRepository;
 import com.yuhelper.core.repo.UserRepository;
+import com.yuhelper.core.utils.DateFactory;
 import com.yuhelper.core.utils.StringConverter;
 
 
@@ -70,8 +71,12 @@ public class UserService {
         SecureRandom random = new SecureRandom();
         byte[] newToken = new byte[32];
         random.nextBytes(newToken);
-        SignUpToken signUpToken = new SignUpToken(user, StringConverter.bytesToHex(newToken));
+        SignUpToken signUpToken = new SignUpToken();
+        signUpToken.setUser(user);
+        signUpToken.setToken(StringConverter.bytesToHex(newToken));
+        signUpToken.setExpiryTime(DateFactory.getShortTokenExpiryDate());
         signUpTokenRepo.saveAndFlush(signUpToken);
+
         user.setSignUpToken(signUpToken);
 
         UserInfo userInfo = new UserInfo();
