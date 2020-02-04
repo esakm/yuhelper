@@ -17,6 +17,30 @@
       "sessionName": "2019/2020",
       "semesterPopUp": 31,
       "semesterName": "Y"
+    },
+    {
+      "sessionPopUp": 1,
+      "sessionName": "2019/2020",
+      "semesterPopUp": 38,
+      "semesterName": "SU"
+    },
+    {
+      "sessionPopUp": 1,
+      "sessionName": "2019/2020",
+      "semesterPopUp": 32,
+      "semesterName": "S1"
+    },
+    {
+      "sessionPopUp": 1,
+      "sessionName": "2019/2020",
+      "semesterPopUp": 33,
+      "semesterName": "S2"
+    },
+    {
+      "sessionPopUp": 1,
+      "sessionName": "2019/2020",
+      "semesterPopUp": 31,
+      "semesterName": "S"
     }
   ]
 }
