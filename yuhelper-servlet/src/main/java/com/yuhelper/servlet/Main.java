@@ -12,9 +12,7 @@ import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 
 @SpringBootApplication(scanBasePackages = {"com"})
@@ -24,8 +22,9 @@ import java.util.Set;
 @EnableCaching
 public class Main {
     public static void main(String[] args){
+        Map<String, String> env = System.getenv();
+        System.out.println(env.get("YUHELPER_PASSWORD"));
         SpringApplication.run(Main.class, args);
     }
-
-
 }
+

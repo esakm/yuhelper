@@ -9,7 +9,4 @@ out/
 build/
 gen
 .gradle
-.gitsecret/keys/random_seed
-yuhelper-servlet/src/main/resources/application.properties
-yuhelper-servlet/src/main/java/com/yuhelper/servlet/config/SecurityConfig.java
-yuhelper-course-scraper/src/main/resources/scraper/scraper.py
+

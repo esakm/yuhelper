@@ -23,7 +23,6 @@ public class CourseRestController {
     public List<Course> courseAutoComplete(@RequestParam String course) {
         return courseService.searchForAutoComplete(course);
     }
-
     @GetMapping(value = "/api/course")
     public Course getCourse(@RequestParam String q, HttpServletResponse response) {
         Optional<Course> course = courseService.searchForRest(q);
